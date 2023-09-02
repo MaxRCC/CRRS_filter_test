@@ -1,0 +1,111 @@
+/******************************************************************************
+*
+* Copyright (C) 2009 - 2014 Xilinx, Inc.  All rights reserved.
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in
+* all copies or substantial portions of the Software.
+*
+* Use of the Software is limited solely to applications:
+* (a) running on a Xilinx device, or
+* (b) that interact with a Xilinx device through a bus or interconnect.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*
+* Except as contained in this notice, the name of the Xilinx shall not be used
+* in advertising or otherwise to promote the sale, use or other dealings in
+* this Software without prior written authorization from Xilinx.
+*
+******************************************************************************/
+
+/*
+ * helloworld.c: simple test application
+ *
+ * This application configures UART 16550 to baud rate 9600.
+ * PS7 UART (Zynq) is not initialized by this application, since
+ * bootrom/bsp configures it to baud rate 115200
+ *
+ * ------------------------------------------------
+ * | UART TYPE   BAUD RATE                        |
+ * ------------------------------------------------
+ *   uartns550   9600
+ *   uartlite    Configurable only in HW design
+ *   ps7_uart    115200 (configured by bootrom/bsp)
+ */
+
+#include "platform.h"
+#include "xil_printf.h"
+#include "xparameters.h"
+#include "xbasic_types.h"
+#include "xil_io.h"
+#include "stdio.h"
+#include "xtime_l.h"
+
+//define ip adresses
+#define BASE_ADDR XPAR_CRRS_FILTER_0_S00_AXI_BASEADDR
+#define BRAM_BASE_ADDR XPAR_AXI_BRAM_CTRL_0_S_AXI_BASEADDR
+#define DDR_BASE_ADDR XPAR_PS7_DDR_0_S_AXI_BASEADDR
+
+
+//function to generate nanosleep wih cpu timers.
+void nanosleep_delay(unsigned long nanoseconds) {
+    XTime start, end;
+    unsigned long cycles;
+
+    // Convert nanoseconds to cycles
+    cycles = (unsigned long)((double)XPAR_CPU_CORTEXA9_CORE_CLOCK_FREQ_HZ * nanoseconds / 1e9);
+
+    // Get the start time
+    XTime_GetTime(&start);
+
+    // Wait until the specified number of cycles has passed
+    do {
+        XTime_GetTime(&end);
+    } while ((end - start) < cycles);
+}
+
+
+
+int main()
+{
+    int num_samples = 8000;  //number of samples to transfer.
+    int i;
+
+    volatile int *bram_ptr = (volatile int *)BRAM_BASE_ADDR;
+    volatile int *ddr_ptr = (volatile int *)DDR_BASE_ADDR;
+
+    print("we = 0 y rst = 1,rst_pcm = 1, start = 0 \n\r");
+    Xil_Out32(XPAR_CRRS_FILTER_0_S00_AXI_BASEADDR,0x00000003);
+    nanosleep_delay(210);
+    print("we = 0 y rst = 0,rst_pcm = 1, start = 1 \n\r");
+    Xil_Out32(XPAR_CRRS_FILTER_0_S00_AXI_BASEADDR,0x0000000A);
+    print("we = 1 y rst = 0,rst_pcm = 0, start = 1 \n\r");
+    nanosleep_delay(420);
+    Xil_Out32(XPAR_CRRS_FILTER_0_S00_AXI_BASEADDR,0x0000000C);
+
+    // reading data from the second personalized register of the crrs filter core.
+    for (i = 0; i < num_samples; i++) {
+        while (!(Xil_In32(BASE_ADDR + 4) & 0x2));  // wait until ARREADY is true
+        int data = Xil_In32(BASE_ADDR + 4);  // read the data register.
+        printf("pcm=%d\n",data);
+        *(bram_ptr + i) = data;
+        int bram_value = *(bram_ptr + i);
+        printf("bram pcm=%d\n",bram_value);
+        *(ddr_ptr + i) = bram_value;
+    }
+    printf("transfer done \n\r");
+}
+
+

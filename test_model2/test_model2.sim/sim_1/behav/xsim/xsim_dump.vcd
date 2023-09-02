@@ -1,0 +1,130 @@
+$date
+   Mon Aug 14 10:33:04 2023
+$end
+$version
+  2018.3
+$end
+$timescale
+  1ps
+$end
+$scope module tb $end
+$var reg 1 H clk $end
+$var reg 1 I rst $end
+$var reg 10 J prescaler [9:0] $end
+$var reg 1 K we $end
+$var reg 1 L start $end
+$var reg 1 M rst_pcm $end
+$var wire 32 ' dec_pcm [31:0] $end
+$scope module dut $end
+$var wire 1 ! clk $end
+$var wire 1 " rst $end
+$var wire 1 # rst_pcm $end
+$var wire 1 $ start $end
+$var wire 1 % we $end
+$var wire 10 & prescaler [9:0] $end
+$var wire 32 ' dec_pcm [31:0] $end
+$var wire 1 ( pdm $end
+$var wire 1 ) mclk $end
+$var wire 1 * ce_pdm $end
+$var wire 12 + data_out2 [11:0] $end
+$var wire 1 , pdmclk $end
+$var wire 1 - crrsclk $end
+$var wire 1 . crrs_datain $end
+$var reg 12 / dec [11:0] $end
+$var wire 1 0 ce_pcm $end
+$var wire 32 1 pcm [31:0] $end
+$scope module mic_clk $end
+$var wire 1 ! clk $end
+$var wire 1 " rst $end
+$var wire 1 ) mclk $end
+$var wire 1 * ce_pdm $end
+$var reg 1 2 tmp1 $end
+$var reg 1 3 tmp2 $end
+$var reg 4 4 cnt1 [3:0] $end
+$var reg 4 5 cnt2 [3:0] $end
+$upscope $end
+$scope module pdmrom $end
+$var wire 1 , clk $end
+$var reg 1 6 pdm $end
+$var wire 1 $ start $end
+$var integer 32 7 i $end
+$var parameter 32 8 SIZE [31:0] $end
+$upscope $end
+$scope module crrs $end
+$var wire 1 - clk $end
+$var wire 1 # rst $end
+$var wire 1 % we $end
+$var wire 1 . data_in $end
+$var wire 12 + data_out2 [11:0] $end
+$var integer 32 9 i $end
+$var wire 7 : sum1 [6:0] $end
+$var wire 2 ; data_1_in [1:0] $end
+$var wire 2 < ff1_last [1:0] $end
+$var reg 7 = ff1out [6:0] $end
+$var wire 7 > dinext1 [6:0] $end
+$var wire 7 ? ffext1 [6:0] $end
+$var wire 12 @ sum2 [11:0] $end
+$var wire 7 A ff2_last [6:0] $end
+$var reg 12 B ff2out [11:0] $end
+$var wire 12 C dinext2 [11:0] $end
+$var wire 12 D ffext2 [11:0] $end
+$var parameter 32 E N [31:0] $end
+$upscope $end
+$scope module pcmclk $end
+$var wire 1 ! clk $end
+$var wire 1 " rst $end
+$var wire 10 & prescaler [9:0] $end
+$var reg 1 F ce_pcm $end
+$var reg 10 G count [9:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+x!
+x"
+x#
+x$
+x%
+bx &
+bx '
+x(
+x)
+x*
+bx +
+x,
+x-
+x.
+bx /
+x0
+bx 1
+x2
+x3
+bx 4
+bx 5
+x6
+bx 7
+b100000000000000 8
+bx 9
+bx :
+bx ;
+bx <
+bx =
+bx >
+bx ?
+bx @
+bx A
+bx B
+bx C
+bx D
+b100000 E
+xF
+bx G
+xH
+xI
+bx J
+xK
+xL
+xM
+$end

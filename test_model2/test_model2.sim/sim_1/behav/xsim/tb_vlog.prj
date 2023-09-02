@@ -1,0 +1,14 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../test_model2.srcs/sources_1/imports/sources_1/imports/hdl_design/crrs.v" \
+"../../../../test_model2.srcs/sources_1/new/micclk.v" \
+"../../../../test_model2.srcs/sources_1/new/pcm_clk.v" \
+"../../../../test_model2.srcs/sources_1/imports/sources_1/imports/hdl_design/pdm_rom.v" \
+"../../../../test_model2.srcs/sources_1/new/top.v" \
+"../../../../test_model2.srcs/sim_1/new/tb.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

@@ -1,0 +1,12 @@
+0.6
+2018.3
+Dec  7 2018
+00:33:28
+C:/Xilinx/vivado_projects/test_model2/test_model2.sim/sim_1/behav/xsim/glbl.v,1544155481,verilog,,,,glbl,,,,,,,,
+C:/Xilinx/vivado_projects/test_model2/test_model2.srcs/sim_1/new/tb.v,1691957362,verilog,,,,tb,,,,,,,,
+C:/Xilinx/vivado_projects/test_model2/test_model2.srcs/sources_1/imports/sources_1/imports/hdl_design/crrs.v,1681255107,verilog,,C:/Xilinx/vivado_projects/test_model2/test_model2.srcs/sources_1/new/micclk.v,,CRRS,,,,,,,,
+C:/Xilinx/vivado_projects/test_model2/test_model2.srcs/sources_1/imports/sources_1/imports/hdl_design/pdm_rom.v,1691696293,verilog,,C:/Xilinx/vivado_projects/test_model2/test_model2.srcs/sources_1/new/top.v,,PDM_ROM,,,,,,,,
+C:/Xilinx/vivado_projects/test_model2/test_model2.srcs/sources_1/new/dec_pcm.v,1691779122,verilog,,C:/Xilinx/vivado_projects/test_model2/test_model2.srcs/sources_1/new/micclk.v,,dec_pcm,,,,,,,,
+C:/Xilinx/vivado_projects/test_model2/test_model2.srcs/sources_1/new/micclk.v,1691705082,verilog,,C:/Xilinx/vivado_projects/test_model2/test_model2.srcs/sources_1/new/pcm_clk.v,,micclk,,,,,,,,
+C:/Xilinx/vivado_projects/test_model2/test_model2.srcs/sources_1/new/pcm_clk.v,1691705058,verilog,,C:/Xilinx/vivado_projects/test_model2/test_model2.srcs/sources_1/imports/sources_1/imports/hdl_design/pdm_rom.v,,pcm_clk,,,,,,,,
+C:/Xilinx/vivado_projects/test_model2/test_model2.srcs/sources_1/new/top.v,1691956398,verilog,,C:/Xilinx/vivado_projects/test_model2/test_model2.srcs/sim_1/new/tb.v,,top,,,,,,,,
